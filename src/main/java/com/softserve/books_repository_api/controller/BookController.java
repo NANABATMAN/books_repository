@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by ikar on 28.09.2016.
@@ -32,18 +33,17 @@ public class BookController {
     }
 
     @RequestMapping(value = "/books", method = RequestMethod.GET)
-    public Object read(@RequestParam(value = "id", required = false) Long id,
-                       @RequestParam(value = "author", required = false) String author) throws Exception {
-        if (id != null && author != null && !author.isEmpty()) {
-            throw new Exception("Only one request param can be used!");
-        }
-        if (id != null) {
-            return conversionService.convert(bookService.findById(id), BookDto.class);
-        }
+    public List<BaseBookDto> read(@RequestParam(value = "author", required = false) String author) {
         if (author != null && !author.isEmpty()) {
             return Arrays.asList(conversionService.convert(bookService.findByAuthor(author), BookDto[].class));
         }
         return Arrays.asList(conversionService.convert(bookService.findAll(), BaseBookDto[].class));
+    }
+
+    @RequestMapping(value = "/books/{id}", method = RequestMethod.GET)
+    public BookDto read(@PathVariable("id") long id) {
+        Book book = bookService.findById(id);
+        return conversionService.convert(book, BookDto.class);
     }
 
     @RequestMapping(value = "/books/{id}", method = RequestMethod.PUT)
