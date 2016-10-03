@@ -3,3 +3,4 @@ git add .
 .idea/
 *.iml
 target/
+*.properties
