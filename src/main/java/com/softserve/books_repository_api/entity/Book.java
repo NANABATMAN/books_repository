@@ -8,12 +8,11 @@ import javax.validation.constraints.NotNull;
  *
  * Created by ikar on 28.09.2016.
  */
-@Entity
-@Table(name = "books")
+@Entity(name = "books")
 public class Book {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @NotNull
