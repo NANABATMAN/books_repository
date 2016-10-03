@@ -14,18 +14,6 @@ import java.util.List;
 @Transactional
 public interface BookRepository extends CrudRepository <Book, Long> {
 
-    @Override
-    @PreAuthorize("hasRole('ADMIN')")
-    Book save(Book book);
-
-    @Override
-    @PreAuthorize("hasRole('ADMIN')")
-    void delete(Long id);
-
-    @Override
-    @PreAuthorize("hasRole('ADMIN')")
-    boolean exists(Long id);
-
     List<Book> findByAuthor(String author);
 
 }

@@ -15,6 +15,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    private final static String ADMIN_ROLE = "ADMIN";
+
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder.inMemoryAuthentication()
@@ -23,7 +25,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.httpBasic().and().csrf().disable();
+        httpSecurity.httpBasic().and().authorizeRequests()
+                .antMatchers(HttpMethod.POST, "/books").hasRole(ADMIN_ROLE)
+                .antMatchers(HttpMethod.PUT, "/books/**").hasRole(ADMIN_ROLE)
+                .antMatchers(HttpMethod.DELETE, "/books/**").hasRole(ADMIN_ROLE)
+                .and().csrf().disable();
     }
 
 }
