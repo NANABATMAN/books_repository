@@ -8,6 +8,8 @@ import javax.validation.constraints.NotNull;
  */
 public class BaseBookDto {
 
+    private long id;
+
     @NotNull
     private String author;
 
@@ -15,6 +17,14 @@ public class BaseBookDto {
     private String title;
 
     public BaseBookDto() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getAuthor() {

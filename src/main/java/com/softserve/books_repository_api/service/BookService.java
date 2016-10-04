@@ -14,7 +14,7 @@ public interface BookService {
 
     void save(Book book);
 
-    void update(BookDto bookDto, long id) throws EntityNotFoundException;
+    void update(Book book, long id) throws EntityNotFoundException;
 
     void delete(long id) throws EntityNotFoundException;
 

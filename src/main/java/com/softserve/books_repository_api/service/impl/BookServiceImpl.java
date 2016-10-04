@@ -24,12 +24,9 @@ public class BookServiceImpl implements BookService {
         bookRepository.save(book);
     }
 
-    public void update(BookDto bookDto, long id) throws EntityNotFoundException {
-        Book book = findById(id);
-        book.setAuthor(bookDto.getAuthor());
-        book.setDescription(bookDto.getDescription());
-        book.setYear(bookDto.getYear());
-        book.setTitle(bookDto.getTitle());
+    public void update(Book book, long id) throws EntityNotFoundException {
+        Book oldBookInfo = findById(id);
+        book.setId(oldBookInfo.getId());
         save(book);
     }
 

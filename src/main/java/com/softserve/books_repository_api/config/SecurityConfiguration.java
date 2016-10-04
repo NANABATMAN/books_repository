@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 
 /**
  * Created by ikar on 29.09.2016.
@@ -25,7 +26,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.httpBasic().and().authorizeRequests()
+        httpSecurity
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().httpBasic().and().authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/books").hasRole(ADMIN_ROLE)
                 .antMatchers(HttpMethod.PUT, "/books/**").hasRole(ADMIN_ROLE)
                 .antMatchers(HttpMethod.DELETE, "/books/**").hasRole(ADMIN_ROLE)

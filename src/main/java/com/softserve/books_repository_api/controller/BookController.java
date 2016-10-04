@@ -48,7 +48,8 @@ public class BookController {
 
     @RequestMapping(value = "/books/{id}", method = RequestMethod.PUT)
     public void update(@Valid @RequestBody BookDto bookDto, @PathVariable("id") long id) throws EntityNotFoundException {
-        bookService.update(bookDto, id);
+        Book book = conversionService.convert(bookDto, Book.class);
+        bookService.update(book, id);
     }
 
     @RequestMapping(value = "/books/{id}", method = RequestMethod.DELETE)

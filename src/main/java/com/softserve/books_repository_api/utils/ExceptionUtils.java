@@ -1,15 +1,14 @@
-package com.softserve.books_repository_api.service.impl;
+package com.softserve.books_repository_api.utils;
 
 import com.softserve.books_repository_api.dto.ErrorMessageDto;
-import com.softserve.books_repository_api.service.ErrorService;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 /**
- * Created by ikar on 30.09.2016.
+ * Created by ikar on 04.10.2016.
  *
  */
-@Service
-public class ErrorServiceImpl implements ErrorService {
+@Component
+public class ExceptionUtils {
 
     public ErrorMessageDto getErrorMessageDtoFromException(Exception ex) {
         ErrorMessageDto errorMessageDto = new ErrorMessageDto();
