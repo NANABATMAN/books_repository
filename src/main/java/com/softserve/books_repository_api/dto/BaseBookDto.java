@@ -11,9 +11,6 @@ public class BaseBookDto {
     private long id;
 
     @NotNull
-    private String author;
-
-    @NotNull
     private String title;
 
     public BaseBookDto() {
@@ -25,14 +22,6 @@ public class BaseBookDto {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
     }
 
     public String getTitle() {

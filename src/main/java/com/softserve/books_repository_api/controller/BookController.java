@@ -33,11 +33,9 @@ public class BookController {
     }
 
     @RequestMapping(value = "/books", method = RequestMethod.GET)
-    public List<BaseBookDto> read(@RequestParam(value = "author", required = false) String author) {
-        if (author != null && !author.isEmpty()) {
-            return Arrays.asList(conversionService.convert(bookService.findByAuthor(author), BookDto[].class));
-        }
-        return Arrays.asList(conversionService.convert(bookService.findAll(), BaseBookDto[].class));
+    public List<BaseBookDto> read() {
+        Iterable<Book> bookList = bookService.findAll();
+        return Arrays.asList(conversionService.convert(bookList, BaseBookDto[].class));
     }
 
     @RequestMapping(value = "/books/{id}", method = RequestMethod.GET)

@@ -16,7 +16,6 @@ public class BookToBaseBookDtoConverter implements Converter<Book, BaseBookDto> 
     public BaseBookDto convert(Book book) {
         BaseBookDto baseBookDto = new BaseBookDto();
         baseBookDto.setId(book.getId());
-        baseBookDto.setAuthor(book.getAuthor());
         baseBookDto.setTitle(book.getTitle());
         return baseBookDto;
     }

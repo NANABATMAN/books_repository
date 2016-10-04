@@ -1,0 +1,29 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+    <changeSet id="1" author="ikar">
+
+        <addPrimaryKey columnNames="authorId, bookId"
+            constraintName="pk_author_book"
+            tableName="author_book"/>
+
+    </changeSet>
+
+    <changeSet id="2" author="ikar">
+
+        <addForeignKeyConstraint baseTableName="authors" baseColumnNames="id" constraintName="fk_author_book" referencedTableName="author_book"
+                                 referencedColumnNames="authorId" onDelete="CASCADE" onUpdate="RESTRICT"/>
+
+    </changeSet>
+
+    <changeSet id="3" author="ikar">
+
+        <addForeignKeyConstraint baseTableName="books" baseColumnNames="id" constraintName="fk_book_author" referencedTableName="author_book"
+                                 referencedColumnNames="bookId" onDelete="CASCADE" onUpdate="RESTRICT"/>
+
+    </changeSet>
+
+</databaseChangeLog>

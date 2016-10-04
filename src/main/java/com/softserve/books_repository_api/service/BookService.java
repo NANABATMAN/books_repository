@@ -20,8 +20,6 @@ public interface BookService {
 
     Book findById(long id) throws EntityNotFoundException;
 
-    List<Book> findByAuthor(String author) throws EntityNotFoundException;
-
     Iterable<Book> findAll();
 
 }
