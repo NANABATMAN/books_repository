@@ -29,9 +29,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         httpSecurity
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().httpBasic().and().authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/books").hasRole(ADMIN_ROLE)
-                .antMatchers(HttpMethod.PUT, "/books/**").hasRole(ADMIN_ROLE)
-                .antMatchers(HttpMethod.DELETE, "/books/**").hasRole(ADMIN_ROLE)
+                .antMatchers(HttpMethod.POST, "/authors").hasRole(ADMIN_ROLE)
+                .antMatchers(HttpMethod.PUT, "/authors/**").hasRole(ADMIN_ROLE)
+                .antMatchers(HttpMethod.DELETE, "/authors/**").hasRole(ADMIN_ROLE)
                 .and().csrf().disable();
     }
 

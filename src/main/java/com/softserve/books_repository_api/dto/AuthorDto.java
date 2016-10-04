@@ -1,31 +1,29 @@
-package com.softserve.books_repository_api.entity;
+package com.softserve.books_repository_api.dto;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.HashSet;
+import com.softserve.books_repository_api.entity.Book;
+import com.sun.istack.internal.NotNull;
+import org.hibernate.validator.constraints.Range;
+
 import java.util.Set;
 
 /**
- * Created by ikar on 04.10.2016.
+ * Created by Илья on 04.10.2016.
  *
  */
-@Entity(name = "authors")
-public class Author {
+public class AuthorDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @NotNull
     private String name;
 
     @NotNull
+    @Range(min = 1000, max = 9999)
     private short year;
 
-//    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private Set<Book> books = new HashSet<>(0);
+    //private Set<Book> books;
 
-    public Author() {
+    public AuthorDto() {
     }
 
     public long getId() {
@@ -59,4 +57,5 @@ public class Author {
 //    public void setBooks(Set<Book> books) {
 //        this.books = books;
 //    }
+
 }

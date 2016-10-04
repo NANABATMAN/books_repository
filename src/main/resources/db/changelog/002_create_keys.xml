@@ -6,7 +6,7 @@
 
     <changeSet id="1" author="ikar">
 
-        <addPrimaryKey columnNames="authorId, bookId"
+        <addPrimaryKey columnNames="author_id, book_id"
             constraintName="pk_author_book"
             tableName="author_book"/>
 
@@ -15,14 +15,18 @@
     <changeSet id="2" author="ikar">
 
         <addForeignKeyConstraint baseTableName="authors" baseColumnNames="id" constraintName="fk_author_book" referencedTableName="author_book"
-                                 referencedColumnNames="authorId" onDelete="CASCADE" onUpdate="RESTRICT"/>
+                                 referencedColumnNames="author_id"/>
+                                 <!--onDelete="CASCADE" onUpdate="RESTRICT"-->
+                <!--/>-->
 
     </changeSet>
 
     <changeSet id="3" author="ikar">
 
         <addForeignKeyConstraint baseTableName="books" baseColumnNames="id" constraintName="fk_book_author" referencedTableName="author_book"
-                                 referencedColumnNames="bookId" onDelete="CASCADE" onUpdate="RESTRICT"/>
+                                 referencedColumnNames="book_id"/>
+                                 <!--onDelete="CASCADE" onUpdate="RESTRICT"-->
+                <!--/>-->
 
     </changeSet>
 

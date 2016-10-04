@@ -25,8 +25,8 @@ public class Book {
 
     private String description;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Author> authors = new HashSet<>(0);
+//    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private Set<Author> authors = new HashSet<>(0);
 
     public Book() {
     }
@@ -63,12 +63,12 @@ public class Book {
         this.description = description;
     }
 
-    public Set<Author> getAuthors() {
-        return authors;
-    }
-
-    public void setAuthors(Set<Author> authors) {
-        this.authors = authors;
-    }
+//    public Set<Author> getAuthors() {
+//        return authors;
+//    }
+//
+//    public void setAuthors(Set<Author> authors) {
+//        this.authors = authors;
+//    }
 
 }
