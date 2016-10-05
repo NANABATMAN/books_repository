@@ -21,8 +21,6 @@ public class AuthorDto {
     @Range(min = 1000, max = 9999)
     private short year;
 
-    //private Set<Book> books;
-
     public AuthorDto() {
     }
 
@@ -49,13 +47,5 @@ public class AuthorDto {
     public void setYear(short year) {
         this.year = year;
     }
-
-//    public Set<Book> getBooks() {
-//        return books;
-//    }
-//
-//    public void setBooks(Set<Book> books) {
-//        this.books = books;
-//    }
 
 }

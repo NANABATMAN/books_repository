@@ -14,19 +14,17 @@
 
     <changeSet id="2" author="ikar">
 
-        <addForeignKeyConstraint baseTableName="authors" baseColumnNames="id" constraintName="fk_author_book" referencedTableName="author_book"
-                                 referencedColumnNames="author_id"/>
-                                 <!--onDelete="CASCADE" onUpdate="RESTRICT"-->
-                <!--/>-->
+        <addForeignKeyConstraint baseTableName="author_book" baseColumnNames="author_id" constraintName="fk_author_book" referencedTableName="authors"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE" onUpdate="RESTRICT"/>
 
     </changeSet>
 
     <changeSet id="3" author="ikar">
 
-        <addForeignKeyConstraint baseTableName="books" baseColumnNames="id" constraintName="fk_book_author" referencedTableName="author_book"
-                                 referencedColumnNames="book_id"/>
-                                 <!--onDelete="CASCADE" onUpdate="RESTRICT"-->
-                <!--/>-->
+        <addForeignKeyConstraint baseTableName="author_book" baseColumnNames="book_id" constraintName="fk_book_author" referencedTableName="books"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE" onUpdate="RESTRICT"/>
 
     </changeSet>
 

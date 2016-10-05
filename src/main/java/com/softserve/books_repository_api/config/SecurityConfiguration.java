@@ -32,6 +32,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/authors").hasRole(ADMIN_ROLE)
                 .antMatchers(HttpMethod.PUT, "/authors/**").hasRole(ADMIN_ROLE)
                 .antMatchers(HttpMethod.DELETE, "/authors/**").hasRole(ADMIN_ROLE)
+                .antMatchers(HttpMethod.POST, "/authors/**/books").hasRole(ADMIN_ROLE)
+                .antMatchers(HttpMethod.PUT, "/authors/**/books/**").hasRole(ADMIN_ROLE)
+                .antMatchers(HttpMethod.DELETE, "/authors/**/books/**").hasRole(ADMIN_ROLE)
                 .and().csrf().disable();
     }
 
