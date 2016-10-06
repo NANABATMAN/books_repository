@@ -6,7 +6,8 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Service;
 
 /**
- * Created by ikar on 05.10.2016.
+ * Created by ikar on 06.10.2016.
+ *
  */
 @Service
 public class AuthorToAuthorDtoConverter implements Converter<Author, AuthorDto> {
@@ -15,8 +16,9 @@ public class AuthorToAuthorDtoConverter implements Converter<Author, AuthorDto> 
     public AuthorDto convert(Author author) {
         AuthorDto authorDto = new AuthorDto();
         authorDto.setId(author.getId());
-        authorDto.setName(author.getName());
         authorDto.setYear(author.getYear());
+        authorDto.setName(author.getName());
+        authorDto.setBooks(author.getBooks());
         return authorDto;
     }
 

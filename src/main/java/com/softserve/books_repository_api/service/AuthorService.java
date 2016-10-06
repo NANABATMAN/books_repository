@@ -27,8 +27,10 @@ public interface AuthorService {
 
     void saveBook(Author author, Book book);
 
-    Book updateBook(Author author, Book book, long bookId) throws EntityNotFoundException;
+    Author updateBook(Author author, Book book, long bookId) throws EntityNotFoundException;
 
     void deleteBook(Author author, long bookId) throws EntityNotFoundException;
+
+    Author findOneBook(Author author, long bookId) throws EntityNotFoundException;
 
 }

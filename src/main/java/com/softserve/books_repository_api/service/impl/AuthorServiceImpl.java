@@ -69,21 +69,49 @@ public class AuthorServiceImpl implements AuthorService {
         bookRepository.save(book);
     }
 
-    public Book updateBook(Author author, Book book, long bookId) {
+    public Author updateBook(Author author, Book book, long bookId) {
         if (!bookRepository.exists(bookId)) {
             throw new EntityNotFoundException("A book with id - " + bookId + " does not exist in database!");
         }
+        if (!author.getBooks().contains(bookRepository.findOne(bookId))) {
+            throw new EntityNotFoundException("Book with id - " + bookId + " does not belong to the author - " + author.getName() + "!");
+        }
         book.setId(bookId);
         bookRepository.save(book);
-        return book;
+        return author;
     }
 
     public void deleteBook(Author author, long bookId) {
         if (!bookRepository.exists(bookId)) {
             throw new EntityNotFoundException("A book with id - " + bookId + " does not exist in database!");
         }
-        author.getBooks().remove(bookRepository.findOne(bookId));
+        Set<Book> bookSet = author.getBooks();
+        if (!bookSet.contains(bookRepository.findOne(bookId))) {
+            throw new EntityNotFoundException("Book with id - " + bookId + " does not belong to the author - " + author.getName() + "!");
+        }
+        bookSet.remove(bookRepository.findOne(bookId));
         bookRepository.delete(bookId);
+    }
+
+    public Author findOneBook(Author author, long bookId) {
+        if (!bookRepository.exists(bookId)) {
+            throw new EntityNotFoundException("A book with id - " + bookId + " does not exist in database!");
+        }
+        Book book = bookRepository.findOne(bookId);
+        if (!author.getBooks().contains(book)) {
+            throw new EntityNotFoundException("Book with id - " + bookId + " does not belong to the author - " + author.getName() + "!");
+        }
+        Author copy = notDeepCopy(author);
+        copy.getBooks().add(book);
+        return copy;
+    }
+
+    private Author notDeepCopy(Author author) {
+        Author copy = new Author();
+        copy.setId(author.getId());
+        copy.setName(author.getName());
+        copy.setYear(author.getYear());
+        return copy;
     }
 
 }

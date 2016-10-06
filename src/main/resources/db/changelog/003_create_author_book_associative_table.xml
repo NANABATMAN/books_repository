@@ -6,21 +6,25 @@
 
     <changeSet id="1" author="ikar">
 
+        <createTable tableName="author_book">
+
+            <column name="author_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="book_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
         <addPrimaryKey columnNames="author_id, book_id"
-            constraintName="pk_author_book"
-            tableName="author_book"/>
-
-    </changeSet>
-
-    <changeSet id="2" author="ikar">
+                       constraintName="pk_author_book"
+                       tableName="author_book"/>
 
         <addForeignKeyConstraint baseTableName="author_book" baseColumnNames="author_id" constraintName="fk_author_book" referencedTableName="authors"
                                  referencedColumnNames="id"
                                  onDelete="CASCADE" onUpdate="RESTRICT"/>
-
-    </changeSet>
-
-    <changeSet id="3" author="ikar">
 
         <addForeignKeyConstraint baseTableName="author_book" baseColumnNames="book_id" constraintName="fk_book_author" referencedTableName="books"
                                  referencedColumnNames="id"

@@ -1,6 +1,7 @@
 package com.softserve.books_repository_api.controller;
 
 import com.softserve.books_repository_api.dto.AuthorDto;
+import com.softserve.books_repository_api.dto.BaseAuthorDto;
 import com.softserve.books_repository_api.dto.BookDto;
 import com.softserve.books_repository_api.entity.Author;
 import com.softserve.books_repository_api.entity.Book;
@@ -27,16 +28,16 @@ public class AuthorController {
     AuthorService authorService;
 
     @RequestMapping(value = "/authors", method = RequestMethod.POST)
-    public void create(@Valid @RequestBody AuthorDto authorDto) {
-        Author author = conversionService.convert(authorDto, Author.class);
+    public void create(@Valid @RequestBody BaseAuthorDto baseAuthorDto) {
+        Author author = conversionService.convert(baseAuthorDto, Author.class);
         authorService.save(author);
     }
 
     @RequestMapping(value = "/authors/{id}", method = RequestMethod.PUT)
-    public AuthorDto update(@Valid @RequestBody AuthorDto authorDto,
-                         @PathVariable("id") long id) {
-        Author author = conversionService.convert(authorDto, Author.class);
-        return conversionService.convert(authorService.update(author, id), AuthorDto.class);
+    public BaseAuthorDto update(@Valid @RequestBody BaseAuthorDto baseAuthorDto,
+                                @PathVariable("id") long id) {
+        Author author = conversionService.convert(baseAuthorDto, Author.class);
+        return conversionService.convert(authorService.update(author, id), BaseAuthorDto.class);
     }
 
     @RequestMapping(value = "/authors/{id}", method = RequestMethod.DELETE)
@@ -45,16 +46,16 @@ public class AuthorController {
     }
 
     @RequestMapping(value = "/authors", method = RequestMethod.GET)
-    public List<AuthorDto> read(@RequestParam(value = "name", required = false) String name) {
+    public List<BaseAuthorDto> read(@RequestParam(value = "name", required = false) String name) {
         if (name != null && !name.isEmpty()) {
-            return Arrays.asList(conversionService.convert(authorService.findByName(name), AuthorDto[].class));
+            return Arrays.asList(conversionService.convert(authorService.findByName(name), BaseAuthorDto[].class));
         }
-        return Arrays.asList(conversionService.convert(authorService.findAll(), AuthorDto[].class));
+        return Arrays.asList(conversionService.convert(authorService.findAll(), BaseAuthorDto[].class));
     }
 
     @RequestMapping(value = "/authors/{id}", method = RequestMethod.GET)
-    public AuthorDto read(@PathVariable("id") long id) {
-        return conversionService.convert(authorService.findOne(id), AuthorDto.class);
+    public BaseAuthorDto read(@PathVariable("id") long id) {
+        return conversionService.convert(authorService.findOne(id), BaseAuthorDto.class);
     }
 
     @RequestMapping(value = "/authors/{id}/books", method = RequestMethod.POST)
@@ -66,12 +67,14 @@ public class AuthorController {
     }
 
     @RequestMapping(value = "/authors/{author_id}/books/{book_id}", method = RequestMethod.PUT)
-    public BookDto updateBook(@Valid @RequestBody BookDto bookDto,
-                              @PathVariable("author_id") long authorId,
-                              @PathVariable("book_id") long bookId) {
+    public AuthorDto updateBook(@Valid @RequestBody BookDto bookDto,
+                                @PathVariable("author_id") long authorId,
+                                @PathVariable("book_id") long bookId) {
         Author author = authorService.findOne(authorId);
         Book book = conversionService.convert(bookDto, Book.class);
-        return conversionService.convert(authorService.updateBook(author, book, bookId), BookDto.class);
+        Author notDeepCopy = authorService.findOneBook(authorService.updateBook(author, book, bookId), bookId);
+        return conversionService.convert(notDeepCopy, AuthorDto.class);
+//        return conversionService.convert(authorService.updateBook(author, book, bookId), AuthorDto.class);
     }
 
     @RequestMapping(value = "/authors/{author_id}/books/{book_id}", method = RequestMethod.DELETE)
@@ -82,9 +85,17 @@ public class AuthorController {
     }
 
     @RequestMapping(value = "/authors/{author_id}/books", method = RequestMethod.GET)
-    public List<BookDto> readAllBooks(@PathVariable("author_id") long authorId) {
+    public AuthorDto readAllBooks(@PathVariable("author_id") long authorId) {
         Author author = authorService.findOne(authorId);
-        return Arrays.asList(conversionService.convert(author.getBooks(), BookDto[].class));
+        return conversionService.convert(author, AuthorDto.class);
+    }
+
+    @RequestMapping(value = "/authors/{author_id}/books/{book_id}", method = RequestMethod.GET)
+    public AuthorDto readBookById(@PathVariable("author_id") long authorId,
+                                @PathVariable("book_id") long bookId) {
+        Author author = authorService.findOne(authorId);
+        Author notDeepCopy = authorService.findOneBook(author, bookId);
+        return conversionService.convert(notDeepCopy, AuthorDto.class);
     }
 
 }
